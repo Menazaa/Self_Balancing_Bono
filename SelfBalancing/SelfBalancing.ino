@@ -9,19 +9,6 @@ double setpoint, input, output;   // PID variables
 PID pid(&input, &output, &setpoint, kP, kI, kD, DIRECT); // PID setup
 
 
-/********** Bluetooth **********/
-
-// include Bluetooth Library
-#include "BluetoothSerial.h"
-
-// Create Bluetooth Instance
-BluetoothSerial SerialBT;
-
-// Create message handling variables
-String message =  "";
-char incomingChar;
-float angleV = 3, turnV = 0; // values from remote
-
 /********** Line Follower **********/
 
 char lineFollowerMode =0;
@@ -31,23 +18,6 @@ char lineFollowerMode =0;
 const char IR1_Pin = 36;
 const char IR2_Pin = 39;
 
-/********** Arm **********/
-
-// #include <Servo.h>
-// const int baseLinkServoPin = 0;
-// const int grabberServoPin = 0;
-// const int grabberLinkServoPin = 0;
-
-// Servo baseLinkServo;
-// Servo grabberServo;
-// Servo grabberLinkServo;
-
-// int angle1 = 0;
-// int angle2 = 0;
-// int angle3 = 0;
-// int pos1 = 0;
-// int pos2 = 0;
-// int pos3 = 0;
 
 /********** Ultrasonic **********/
 
