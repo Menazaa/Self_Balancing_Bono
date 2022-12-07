@@ -1,9 +1,9 @@
 /********** PID **********/
 #include <PID_v1.h>
 
-double kP = 100;
-double kI = 12;
-double kD = 8;
+double kP = 20;
+double kI = 50;
+double kD = 0.8;
 
 double setpoint, input, output;   // PID variables
 PID pid(&input, &output, &setpoint, kP, kI, kD, DIRECT); // PID setup
@@ -12,6 +12,10 @@ PID pid(&input, &output, &setpoint, kP, kI, kD, DIRECT); // PID setup
 /********** Line Follower **********/
 
 char lineFollowerMode =0;
+
+/********** Remote control **********/
+
+float angleV = 0, turnV = 0; // values from remote
 
 /********** Line Follower **********/
 
@@ -23,13 +27,13 @@ char lineFollowerMode =0;
 #include <L298N.h>
 
 // Pin definition
-const unsigned int EN_A = 4;
-const unsigned int IN1_A = 16;
-const unsigned int IN2_A = 17;
+const unsigned int EN_A = 10;
+const unsigned int IN1_A = 8;
+const unsigned int IN2_A = 9;
 
-const unsigned int IN1_B = 18;
-const unsigned int IN2_B = 5;
-const unsigned int EN_B = 19;
+const unsigned int IN1_B = 7;
+const unsigned int IN2_B = 6;
+const unsigned int EN_B = 5;
 
 // Create motor instances
 L298N rightMotor(EN_A, IN1_A, IN2_A);
@@ -53,7 +57,7 @@ MPU6050 mpu;
 
 
 // INTERRUP PIN
-const unsigned int MPU_INTERRUPT_PIN = 13;
+const unsigned int MPU_INTERRUPT_PIN = 2;
 
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
@@ -107,7 +111,7 @@ void setup() {
         mpu.setDMPEnabled(true);
 
         // enable Arduino interrupt detection
-        attachInterrupt(MPU_INTERRUPT_PIN, dmpDataReady, RISING);
+        attachInterrupt(digitalPinToInterrupt(MPU_INTERRUPT_PIN), dmpDataReady, RISING);
         mpuIntStatus = mpu.getIntStatus();
 
         // get expected DMP packet size for later comparison
@@ -139,9 +143,9 @@ void loop() {
 
 
 
-  if(lineFollowerMode){
-    LineFollower(10);
-  }
+  // if(lineFollowerMode){
+  //   LineFollower(10);
+  // }
 
   // Arm Servo Conrol PWM
 
