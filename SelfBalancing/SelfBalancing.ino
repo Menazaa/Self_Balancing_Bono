@@ -19,11 +19,6 @@ const char IR1_Pin = 36;
 const char IR2_Pin = 39;
 
 
-/********** Ultrasonic **********/
-
-const int trigPin1 = 0;
-const int echoPin1 = 0;
-
 /********** L298N **********/
 #include <L298N.h>
 
@@ -127,24 +122,12 @@ void setup() {
         Serial.println(F(")"));
     }
     
-    // PID Setuo
+    // PID Setup
     pid.SetMode(AUTOMATIC);
     pid.SetOutputLimits(-255,255);
     pid.SetSampleTime(10);
     
 
-    // Bluetooth Setup
-     SerialBT.begin("Zeko"); //Bluetooth device name
-
-
-    // Arm Sevos Setup
-    // baseLinkServo.attach(baseLinkServoPin);
-    // grabberServo.attach(grabberServoPin);
-    // grabberLinkServo.attach(grabberLinkServoPin);
-
-    // Ultrasonic Setup
-    pinMode(trigPin1, OUTPUT); // Sets the trigPin as an Output
-    pinMode(echoPin1, INPUT); // Sets the echoPin as an Input
 
     // IR Setup
     pinMode(IR1_Pin, INPUT); 
@@ -152,23 +135,6 @@ void setup() {
 }
 
 void loop() {
-  
-
-  // only read remote data if remote is available from Bluetooth, otherwise balance normally
-
-
-  if (SerialBT.available()) {
-      incomingChar = SerialBT.read();
-      if(incomingChar !='\n' && incomingChar != '/'){
-        message +=  String(incomingChar);
-      }else if(incomingChar == '/'){
-          angleV =  message.toFloat();
-          message = "";
-      }else{
-          turnV =  message.toFloat();
-          message = "";
-        }
-  }
   
 
 
