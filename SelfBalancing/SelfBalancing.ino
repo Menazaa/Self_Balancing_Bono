@@ -15,8 +15,8 @@ char lineFollowerMode =0;
 
 /********** Line Follower **********/
 
-const char IR1_Pin = 36;
-const char IR2_Pin = 39;
+// const char IR1_Pin = 36;
+// const char IR2_Pin = 39;
 
 
 /********** L298N **********/
@@ -129,9 +129,9 @@ void setup() {
     
 
 
-    // IR Setup
-    pinMode(IR1_Pin, INPUT); 
-    pinMode(IR2_Pin, INPUT);
+    // // IR Setup
+    // pinMode(IR1_Pin, INPUT); 
+    // pinMode(IR2_Pin, INPUT);
 }
 
 void loop() {
