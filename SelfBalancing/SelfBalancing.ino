@@ -1,9 +1,9 @@
 /********** PID **********/
 #include <PID_v1.h>
 
-double kP = 20;
-double kI = 50;
-double kD = 0.8;
+double kP = 150;
+double kI = 300;
+double kD = 10;
 
 double setpoint, input, output;   // PID variables
 PID pid(&input, &output, &setpoint, kP, kI, kD, DIRECT); // PID setup
@@ -27,13 +27,13 @@ float angleV = 0, turnV = 0; // values from remote
 #include <L298N.h>
 
 // Pin definition
-const unsigned int EN_A = 10;
-const unsigned int IN1_A = 8;
-const unsigned int IN2_A = 9;
+const unsigned int EN_B = 32;
+const unsigned int IN1_B = 25;
+const unsigned int IN2_B = 33;
 
-const unsigned int IN1_B = 7;
-const unsigned int IN2_B = 6;
-const unsigned int EN_B = 5;
+const unsigned int IN1_A = 26;
+const unsigned int IN2_A = 27;
+const unsigned int EN_A = 14;
 
 // Create motor instances
 L298N rightMotor(EN_A, IN1_A, IN2_A);
@@ -57,7 +57,7 @@ MPU6050 mpu;
 
 
 // INTERRUP PIN
-const unsigned int MPU_INTERRUPT_PIN = 2;
+const unsigned int MPU_INTERRUPT_PIN = 17;
 
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
@@ -65,7 +65,7 @@ uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
 uint8_t devStatus;      // return status after each device operation (0 = success, !0 = error)
 uint16_t packetSize;    // expected DMP packet size (default is 42 bytes)
 uint16_t fifoCount;     // count of all bytes currently in FIFO
-uint8_t fifoBuffer[64]; // FIFO storage buffer
+uint8_t fifoBuffer[100]; // FIFO storage buffer
 
 // orientation/motion vars
 Quaternion q;           // [w, x, y, z]         quaternion container
@@ -100,10 +100,10 @@ void setup() {
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
-    mpu.setXGyroOffset(220);
-    mpu.setYGyroOffset(76);
-    mpu.setZGyroOffset(-85);
-    mpu.setZAccelOffset(1788); // 1688 factory default for my test chip
+    mpu.setXGyroOffset(172);
+    mpu.setYGyroOffset(28);
+    mpu.setZGyroOffset(-23);
+    mpu.setZAccelOffset(1342); // 1688 factory default for my test chip
 
     // make sure it worked (returns 0 if so)
     if (devStatus == 0) {
@@ -111,7 +111,7 @@ void setup() {
         mpu.setDMPEnabled(true);
 
         // enable Arduino interrupt detection
-        attachInterrupt(digitalPinToInterrupt(MPU_INTERRUPT_PIN), dmpDataReady, RISING);
+        attachInterrupt(MPU_INTERRUPT_PIN, dmpDataReady, RISING);
         mpuIntStatus = mpu.getIntStatus();
 
         // get expected DMP packet size for later comparison
@@ -167,7 +167,7 @@ void loop() {
   }
 
   // PID vars
-  setpoint =  angleV; 
+  setpoint =  angleV -0.5 ; 
   input = pitch;
 
   pid.Compute();
