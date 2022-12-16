@@ -1,29 +1,4 @@
-#include <Arduino.h>
-#include <WiFi.h>
-#include <WebServer.h>
-#include <ArduinoJson.h>
 
-
-const char *SSID = "your_wifi-ssid";
-const char *PWD = "your_wifi_password";
- 
-// Web server running on port 80
-WebServer server(80);
- 
-// JSON data buffer
-StaticJsonDocument<250> jsonDocument;
-char buffer[250];
- 
-// variables
-int base_angle = 0;
-int link_angle = 0;
-int grabber_angle = 0;
-float distance_M =0;
-float distance_L =0;
-float distance_R =0;
-float x_pos =0; 
-float y_pos =0; 
- 
 void connectToWiFi() {
   Serial.print("Connecting to ");
   Serial.println(SSID);
