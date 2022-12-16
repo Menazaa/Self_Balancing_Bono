@@ -131,25 +131,16 @@ void setup() {
     pid.SetOutputLimits(-255,255);
     pid.SetSampleTime(10);
     
+    // Communication Setup
+   connectToWiFi();
+   setup_routing();  
 
-
-    // // IR Setup
-    // pinMode(IR1_Pin, INPUT); 
-    // pinMode(IR2_Pin, INPUT);
 }
 
 void loop() {
   
-
-
-
-  // if(lineFollowerMode){
-  //   LineFollower(10);
-  // }
-
-  // Arm Servo Conrol PWM
-
-
+// Communication loop
+ server.handleClient();
 
 
   if (IMUdataReady == 1) {
