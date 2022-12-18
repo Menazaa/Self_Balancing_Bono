@@ -21,8 +21,8 @@ char lineFollowerMode =0;
 #include <ArduinoJson.h>
 
 
-const char *SSID = "your_wifi-ssid";
-const char *PWD = "your_wifi_password";
+const char *SSID = "Bono";
+const char *PWD = "12345678";
  
 // Web server running on port 80
 WebServer server(80);
@@ -217,12 +217,15 @@ void loop() {
   }
 
   // print some control info
-  Serial.print("pitch: ");
-  Serial.print(pitch);
-  Serial.print(" , angleV: ");
-  Serial.print(angleV);
-  Serial.print(" , turnV: ");
-  Serial.println(turnV);
-
+  // Serial.print("pitch: ");
+  // Serial.print(pitch);
+  // Serial.print(" , angleV: ");
+  // Serial.print(angleV);
+  // Serial.print(" , turnV: ");
+  // Serial.println(turnV);
+  Serial.print(" , x_pos: ");
+  Serial.println(x_pos);
+  Serial.print(" , y_pos: ");
+  Serial.println(y_pos);
 
 }
