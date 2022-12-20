@@ -186,7 +186,7 @@ void loop() {
   }
 
   // PID vars
-  setpoint =  angleV -0.5 ; 
+  setpoint =  angleV -0.5+y_pos ; 
   input = pitch;
 
   pid.Compute();
