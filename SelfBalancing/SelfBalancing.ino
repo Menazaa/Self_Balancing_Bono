@@ -1,9 +1,9 @@
 /********** PID **********/
 #include <PID_v1.h>
 
-double kP = 150;
-double kI = 300;
-double kD = 10;
+double kP = 145;
+double kI = 10.5;
+double kD = 300;
 
 double setpoint, input, output;   // PID variables
 PID pid(&input, &output, &setpoint, kP, kI, kD, DIRECT); // PID setup
@@ -186,7 +186,7 @@ void loop() {
   }
 
   // PID vars
-  setpoint =  angleV -0.5+y_pos ; 
+  setpoint =  angleV +y_pos ; 
   input = pitch;
 
   pid.Compute();
@@ -223,9 +223,18 @@ void loop() {
   // Serial.print(angleV);
   // Serial.print(" , turnV: ");
   // Serial.println(turnV);
-  Serial.print(" , x_pos: ");
-  Serial.println(x_pos);
-  Serial.print(" , y_pos: ");
-  Serial.println(y_pos);
+  // Serial.print(" , x_pos: ");
+  // Serial.println(x_pos);
+  // Serial.print(" , y_pos: ");
+  // Serial.println(y_pos);
+  Serial.print("Setpoint:");  
+  Serial.print(setpoint);
+  Serial.print(','); 
+  Serial.print("Measured angle:");  
+  Serial.print(pitch);
+  Serial.print(',');
+  Serial.println();
+  x_pos  = 0;
+  y_pos  = 0;
 
 }
