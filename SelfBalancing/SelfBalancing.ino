@@ -124,7 +124,7 @@ void setup() {
     Serial.begin(115200);
 
     // initialize device
-    mpu.initialize();
+    mpu.initialize();  
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
